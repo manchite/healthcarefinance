@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating Budget</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Operating Budget</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Static Budget</th>
+                <th>Unit</th>
+                <th>Flexible Budget</th>
+                <th>Actual Results</th>
+            </tr>
+            <tr>
+                <td>Total FF Visit Volume</td>
+                <td><span id="static_visit"></span></td>
+                <td>visits</td>
+                <td><span id="flexible_visit"></span></td>
+                <td><span id="actual_visit"></span></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="font-weight: bold; text-align: center;">Payer Mix</td>
+            </tr>
+            
+            <tr>
+                <td>Blue Cross</td>
+                <td><span id="static_bluecross"></span></td>
+                <td></td>
+                <td><span id="flexible_bluecross"></span></td>
+                <td><input id="actual_bluecross" type="number" min="0" max="100" placeholder="percentage" value="" oninput="updateValues(this.value, 'volumeBlueCross')"> %</td>
+            </tr>
+            <tr>
+                <td>Highmark</td>
+                <td><span id="static_highmark"></span></td>
+                <td></td>
+                <td><span id="flexible_highmark"></span></td>
+                <td><input id="actual_highmark" type="number" min="0" max="100" placeholder="percentage" value="" oninput="updateValues(this.value, 'volumeHighmark')"> %</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="font-weight: bold; text-align: center;">Reimbursement Rates</td>
+            </tr>
+            <tr>
+                <td>Blue Cross</td>
+                <td><span id="static_reimbursement_bluecross"></span></td>
+                <td> per visit</td>
+                <td><span id="flexible_reimbursement_bluecross"></span></td>
+                <td>$ <input id="actual_reimbursement_bluecross" type="number" placeholder="amount per visit" oninput="updateValues(this.value, 'revenueBlueCross')"></td>
+            </tr>
+            <tr>
+                <td>Highmark</td>
+                <td><span id="static_reimbursement_highmark"></span></td>
+                <td> per visit</td>
+                <td><span id="flexible_reimbursement_highmark"></span></td>
+                <td>$ <input id="actual_reimbursement_highmark" type="number" placeholder="amount per visit" oninput="updateValues(this.value, 'revenueHighmark')"></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="font-weight: bold; text-align: center;">Variable Costs</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="font-weight: bold; padding-left: 20px;">Resource Inputs</td>
+            </tr>
+            <tr>
+                <td>Labor</td>
+                <td><span id="static_labor_inputs"></span></td>
+                <td> total hours</td>
+                <td><span id="flexible_labor_inputs"></span></td>
+                <td><input id="actual_labor_inputs" type="number" placeholder="hours" oninput="updateValues(this.value, 'laborInputs')"></td>
+            </tr>
+            <tr>
+                <td>Supplies</td>
+                <td><span id="static_supplies_inputs"></span></td>
+                <td> total units</td>
+                <td><span id="flexible_supplies_inputs"></span></td>
+                <td><input id="actual_supplies_inputs" type="number" placeholder="hours" oninput="updateValues(this.value, 'suppliesInputs')"></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="font-weight: bold; padding-left: 20px;">Resource Input Prices</td>
+            </tr>
+            <tr>
+                <td>Labor</td>
+                <td><span id="static_labor_prices"></span></td>
+                <td> per hour</td>
+                <td><span id="flexible_labor_prices"></span></td>
+                <td>$ <input id="actual_labor_prices" type="number" placeholder="amount" oninput="updateValues(this.value, 'laborPrices')"></td>
+            </tr>
+            <tr>
+                <td>Supplies</td>
+                <td><span id="static_supplies_prices"></span></td>
+                <td> per unit</td>
+                <td><span id="flexible_supplies_prices"></span></td>
+                <td>$ <input id="actual_supplies_prices" type="number" placeholder="amount" oninput="updateValues(this.value, 'suppliesPrices')"></td>
+            </tr>
+            <tr>
+                <td>Fixed Costs</td>
+                <td><span class="static_fixed_costs"></span></td>
+                <td></td>
+                <td><span class="flexible_fixed_costs"></span></td>
+                <td><span class="actual_fixed_costs"></span></td>
+            </tr>
+        </table>
+    </div>
+    <div class = "results-container">
+        <h2>Volume</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Calculation</th>
+                <th>Static Budget</th>
+                <th>Calculation</th>
+                <th>Flexible Budget</th>
+                <th>Calculation</th>
+                <th>Actual Results</th>
+                
+            </tr>
+            <tr>
+                <td>Blue Cross FFS</td>
+                <td><span id="static_bluecross_cal"></span></td>
+                <td><span id="static_bluecross_amt"></span></td>
+                <td><span id="flexible_bluecross_cal"></span></td>
+                <td><span id="flexible_bluecross_amt"></span></td>
+                <td><span id="actual_bluecross_cal"></span></td>
+                <td><span id="actual_bluecross_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Highmark FFS</td>
+                <td><span id="static_highmark_cal"></span></td>
+                <td><span id="static_highmark_amt"></span></td>
+                <td><span id="flexible_highmark_cal"></span></td>
+                <td><span id="flexible_highmark_amt"></span></td>
+                <td><span id="actual_highmark_cal"></span></td>
+                <td><span id="actual_highmark_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Totoal Budget Visits</td>
+                <td></td>
+                <td><span id="static_total_amt"></span></td>
+                <td></td>
+                <td><span id="flexible_total_amt"></span></td>
+                <td></td>
+                <td><span id="actual_total_amt"></span></td>
+            </tr>      
+        </table>
+        <h2>Revenues</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Calculation</th>
+                <th>Static Budget</th>
+                <th>Calculation</th>
+                <th>Flexible Budget</th>
+                <th>Calculation</th>
+                <th>Actual Results</th>
+                
+            </tr>
+            <tr>
+                <td>Blue Cross FFS</td>
+                <td><span id="static_reimbursement_bluecross_cal"></span></td>
+                <td><span id="static_reimbursement_bluecross_amt"></span></td>
+                <td><span id="flexible_reimbursement_bluecross_cal"></span></td>
+                <td><span id="flexible_reimbursement_bluecross_amt"></span></td>
+                <td><span id="actual_reimbursement_bluecross_cal"></span></td>
+                <td><span id="actual_reimbursement_bluecross_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Highmark FFS</td>
+                <td><span id="static_reimbursement_highmark_cal"></span></td>
+                <td><span id="static_reimbursement_highmark_amt"></span></td>
+                <td><span id="flexible_reimbursement_highmark_cal"></span></td>
+                <td><span id="flexible_reimbursement_highmark_amt"></span></td>
+                <td><span id="actual_reimbursement_highmark_cal"></span></td>
+                <td><span id="actual_reimbursement_highmark_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Total Budgeted Revenues</td>
+                <td></td>
+                <td><span class="static_reimbursement_total_amt"></span></td>
+                <td></td>
+                <td><span class="flexible_reimbursement_total_amt"></span></td>
+                <td></td>
+                <td><span class="actual_reimbursement_total_amt"></span></td>
+            </tr>
+        </table>
+        <h2>Costs: Variable Costs</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Calculation</th>
+                <th>Static Budget</th>
+                <th>Calculation</th>
+                <th>Flexible Budget</th>
+                <th>Calculation</th>
+                <th>Actual Results</th>
+                
+            </tr>
+            <tr>
+                <td>Labor</td>
+                <td><span id="static_labor_inputs_cal"></span></td>
+                <td><span id="static_labor_inputs_amt"></span></td>
+                <td><span id="flexible_labor_inputs_cal"></span></td>
+                <td><span id="flexible_labor_inputs_amt"></span></td>
+                <td><span id="actual_labor_inputs_cal"></span></td>
+                <td><span id="actual_labor_inputs_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Supplies</td>
+                <td><span id="static_supplies_inputs_cal"></span></td>
+                <td><span id="static_supplies_inputs_amt"></span></td>
+                <td><span id="flexible_supplies_inputs_cal"></span></td>
+                <td><span id="flexible_supplies_inputs_amt"></span></td>
+                <td><span id="actual_supplies_inputs_cal"></span></td>
+                <td><span id="actual_supplies_inputs_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Total Variable Costs</td>
+                <td></td>
+                <td><span class="static_variable_total_amt"></span></td>
+                <td></td>
+                <td><span class="flexible_variable_total_amt"></span></td>
+                <td></td>
+                <td><span class="actual_variable_total_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Variable Costs per Visit</td>
+                <td><span id="static_variable_per_visit_cal"></span></td>
+                <td><span id="static_variable_per_visit"></span></td>
+                <td><span id="flexible_variable_per_visit_cal"></span></td>
+                <td><span id="flexible_variable_per_visit"></span></td>
+                <td><span id="actual_variable_per_visit_cal"></span></td>
+                <td><span id="actual_variable_per_visit"></span></td>
+            </tr>
+        </table>
+        <h2>Profit & Loss Statement</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Calculation</th>
+                <th>Static Profits</th>
+                <th>Calculation</th>
+                <th>Flexible Profits</th>
+                <th>Calculation</th>
+                <th>Actual Profits</th>
+                
+            </tr>
+            <tr>
+                <td>Total Budgeted Revenues</td>
+                <td></td>
+                <td><span class="static_reimbursement_total_amt"></span></td>
+                <td></td>
+                <td><span class="flexible_reimbursement_total_amt"></span></td>
+                <td></td>
+                <td><span class="actual_reimbursement_total_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Total Variable Costs</td>
+                <td></td>
+                <td><span class="static_variable_total_amt"></span></td>
+                <td></td>
+                <td><span class="flexible_variable_total_amt"></span></td>
+                <td></td>
+                <td><span class="actual_variable_total_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Fixed Costs</td>
+                <td></td>
+                <td><span class="static_fixed_costs"></span></td>
+                <td></td>
+                <td><span class="flexible_fixed_costs"></span></td>
+                <td></td>
+                <td><span class="actual_fixed_costs"></span></td>
+            </tr>
+            <tr>
+                <td>Totoal Budget Visits</td>
+                <td><span id="static_total_profit_amt_cal"></span></td>
+                <td><span id="static_total_profit_amt"></span></td>
+                <td><span id="flexible_total_profit_amt_cal"></span></td>
+                <td><span id="flexible_total_profit_amt"></span></td>
+                <td><span id="actual_total_profit_amt_cal"></span></td>
+                <td><span id="actual_total_profit_amt"></span></td>
+            </tr>      
+        </table>
+    </div>
+
+    <div class="results-container">
+        <h2>Variance</h2>
+        <table>
+            <tr>
+                <th>Variance Category</th>
+                <th></th>
+                <th>Calculation</th>
+                <th>Variance</th>
+            </tr>
+            <tr>
+                <td>Profit Variance</td>
+                <td>Actual Profit - Static Profit</td>
+                <td><span id="profit_variance_cal"></span></td>
+                <td><span id="profit_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Revenue Variance</td>
+                <td>Actual Revenue - Static Revenue</td>
+                <td><span id="revenue_variance_cal"></span></td>
+                <td><span id="revenue_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Cost Variance</td>
+                <td>Static Cost - Actual Costs</td>
+                <td><span id="cost_variance_cal"></span></td>
+                <td><span id="cost_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Volume Variance (originally planned volume)</td>
+                <td>Flexible Revenue - Static Revenue</td>
+                <td><span id="volume_variance_cal"></span></td>
+                <td><span id="volume_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Price Variance</td>
+                <td>Actual Revenue - Flexible Revenue</td>
+                <td><span id="price_variance_cal"></span></td>
+                <td><span id="price_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Volume Variance (the volume that actually occurred)</td>
+                <td>Static Costs - Flexible Costs</td>
+                <td><span id="volume2_variance_cal"></span></td>
+                <td><span id="volume2_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Management Variance</td>
+                <td>Flexible Costs - Actual Costs</td>
+                <td><span id="management_variance_cal"></span></td>
+                <td><span id="management_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Labor Variance</td>
+                <td>Flexible Labor Costs - Actual Labor Costs</td>
+                <td><span id="labor_variance_cal"></span></td>
+                <td><span id="labor_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Supplies Variance</td>
+                <td>Flexible Supplies Costs - Actual Supplies Costs</td>
+                <td><span id="supplies_variance_cal"></span></td>
+                <td><span id="supplies_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Fixed Costs Variance</td>
+                <td>Flexible Fixed Costs - Actual Fixed costs</td>
+                <td><span id="fixed_variance_cal"></span></td>
+                <td><span id="fixed_variance_amt"></span></td>
+            </tr>
+        </table>
+        <h2>Additional Analysis</h2>
+        <table>
+            <tr>
+                <th>Variance Category Rate</th>
+                <th></th>
+                <th>Calculation</th>
+                <th>Variance</th>
+            </tr>
+            <tr>
+                <td>Labor Varaince Rate</td>
+                <td>(Static Rate - Actual Rate) * Actual Labor</td>
+                <td><span id="labor_variance_rate_cal"></span></td>
+                <td><span id="labor_variance_rate_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Labor Efficiency Rate</td>
+                <td> (Flexible Hours - Actual Hours) * Static Rate</td>
+                <td><span id="labor_efficiency_rate_cal"></span></td>
+                <td><span id="labor_efficiency_rate_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Supplies Price Varaince</td>
+                <td>(Static Price - Actual Price) * Actual Units</td>
+                <td><span id="supplies_price_variance_cal"></span></td>
+                <td><span id="supplies_price_variance_amt"></span></td>
+            </tr>
+            <tr>
+                <td>Supplies Price Varaince</td>
+                <td>(Static Price - Actual Price) * Actual Units</td>
+                <td><span id="supplies_usage_variance_cal"></span></td>
+                <td><span id="supplies_usage_variance_amt"></span></td>
+            </tr>
+            
+        </table>
+    </div>
+    
+
+    <script src="js/script.js"></script>
+</body>
+</html>
