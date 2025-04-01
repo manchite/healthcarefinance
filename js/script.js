@@ -488,8 +488,44 @@ document.getElementById("static_total_profit_amt").innerText = "$" + formatNumbe
 updateTotalProfit()
 
 
+// function to generate pdf
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10; // Initial Y position
 
+    // Get all tables
+    const tables = document.querySelectorAll("table");
 
+    tables.forEach((table, index) => {
+        if (index > 0) y += 10; // Space between tables
+        
+        const data = [];
+        const rows = table.querySelectorAll("tr");
 
+        rows.forEach(row => {
+            const rowData = [];
+            row.querySelectorAll("th, td").forEach(cell => {
+                let value = cell.innerText; // Default text content
 
+                const input = cell.querySelector("input"); // Check for input field
+                if (input) {
+                    value = input.value; // Get value from input field
+                }
 
+                rowData.push(value);
+            });
+            data.push(rowData);
+        });
+
+        doc.autoTable({
+            head: [data[0]], // Header row
+            body: data.slice(1), // Body rows
+            startY: y
+        });
+
+        y = doc.lastAutoTable.finalY + 10; // Update Y position for next table
+    });
+
+    doc.save("tables.pdf");
+}
