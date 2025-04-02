@@ -527,5 +527,5 @@ function generatePDF() {
         y = doc.lastAutoTable.finalY + 10; // Update Y position for next table
     });
 
-    doc.save("tables.pdf");
+    doc.save("results.pdf");
 }
