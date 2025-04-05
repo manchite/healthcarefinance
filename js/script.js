@@ -8,7 +8,7 @@ function updateVariableTotal(){
             element.innerText = "$" + formatNumber(flexibleVariableTotalAmt);
         });
 
-        document.getElementById("flexible_variable_per_visit_cal").innerText = "( $" + formatNumber(flexibleVariableTotalAmt) + " / $" + formatNumber(flexibleVisit) + " )";
+        document.getElementById("flexible_variable_per_visit_cal").innerText = "( $" + formatNumber(flexibleVariableTotalAmt) + " / " + formatNumber(flexibleVisit) + " visits )";
         document.getElementById("flexible_variable_per_visit").innerText = "$" + formatNumber(flexibleVariableTotalAmt / flexibleVisit);
     } else {
         flexibleVariableTotalAmt = 0;
@@ -26,7 +26,7 @@ function updateVariableTotal(){
             element.innerText = "$" + formatNumber(actualVariableTotalAmt);
         });
 
-        document.getElementById("actual_variable_per_visit_cal").innerText = "( $" + formatNumber(actualVariableTotalAmt) + " / $" + formatNumber(actualVisit) + " )";
+        document.getElementById("actual_variable_per_visit_cal").innerText = "( $" + formatNumber(actualVariableTotalAmt) + " / " + formatNumber(actualVisit) + " visits )";
         document.getElementById("actual_variable_per_visit").innerText = "$" + formatNumber(actualVariableTotalAmt / actualVisit);
     } else {
         actualVariableTotalAmt = 0;
@@ -117,9 +117,9 @@ function updateValues(value, type) {
             document.getElementById("actual_bluecross").innerText = actualBlueCross + "%";
             document.getElementById("actual_bluecross_cal").innerText = "( " + actualBlueCross + " % " + " of "+ formatNumber(actualVisit) + " )";
             actualBlueCrossAmt = (actualBlueCross * actualVisit) / 100
-            document.getElementById("actual_bluecross_amt").innerText = "$" + formatNumber(actualBlueCrossAmt);
+            document.getElementById("actual_bluecross_amt").innerText = formatNumber(actualBlueCrossAmt)  + ' visits';
             actualTotalAmt = actualBlueCrossAmt + actualHighmarkAmt
-            document.getElementById("actual_total_amt").innerText = "$" + formatNumber(actualTotalAmt);
+            document.getElementById("actual_total_amt").innerText = formatNumber(actualTotalAmt)  + ' visits';
              
         } else {
             document.getElementById("actual_bluecross").innerText = ""
@@ -137,9 +137,9 @@ function updateValues(value, type) {
             document.getElementById("actual_highmark").innerText = actualHighmark + "%";
             document.getElementById("actual_highmark_cal").innerText = "( " + actualHighmark + " % " + " of "+ formatNumber(actualVisit) + " )";
             actualHighmarkAmt = (actualHighmark * actualVisit) / 100
-            document.getElementById("actual_highmark_amt").innerText = "$" + formatNumber(actualHighmarkAmt);
+            document.getElementById("actual_highmark_amt").innerText = formatNumber(actualHighmarkAmt)  + ' visits';
             actualTotalAmt = actualBlueCrossAmt + actualHighmarkAmt
-            document.getElementById("actual_total_amt").innerText = "$" + formatNumber(actualTotalAmt);
+            document.getElementById("actual_total_amt").innerText = formatNumber(actualTotalAmt)  + ' visits';
             
         } else {
             document.getElementById("actual_highmark").innerText = ""
@@ -298,72 +298,6 @@ function updateValues(value, type) {
     updateTotalProfit()
         
 }
-// Define budget variables
-let staticVisit = 90000;
-let flexibleVisit = 100000;
-let actualVisit = 100000;
-
-
-let staticBlueCross = 40;
-let flexibleBlueCross = staticBlueCross; // Initialize variable
-let actualBlueCross = 0; // Initialize variable
-
-// Initialize Amount Value for other variables(BlueCross)
-let staticBlueCrossAmt = 0;
-let flexibleBlueCrossAmt = 0;
-let actualBlueCrossAmt = 0;
-
-
-let staticHighmark = 60;
-let flexibleHighmark = staticHighmark; 
-let actualHighmark = 0; // Initialize variable
-
-// Initialize Amount Value for other variables(BlueCross)
-let staticHighmarkAmt = 0;
-let flexibleHighmarkAmt = 0;
-let actualHighmarkAmt = 0;
-
-let staticTotalAmt = 0;
-let flexibleTotalAmt = 0;
-let actualTotalAmt = 0;
-
-
-let staticReimbursementBlueCross = 25;
-let flexibleReimbursementBlueCross = staticReimbursementBlueCross; // Initialize variable
-let actualReimbursementBlueCross = 0;// Initialize variable
-
-// Initialize Amount Value for other variables(BlueCross)
-let staticReimbursementBlueCrossAmt = 0;
-let flexibleReimbursementBlueCrossAmt = 0;
-let actualReimbursementBlueCrossAmt = 0;
-
-
-let staticReimbursementHighmark = 20, flexibleReimbursementHighmark = staticReimbursementHighmark, actualReimbursementHighmark = 0; // Initialize variable
-
-// Initialize Amount Value for other variables(BlueCross)
-let staticReimbursementHighmarkAmt = 0, flexibleReimbursementHighmarkAmt = 0, actualReimbursementHighmarkAmt = 0;
-
-let staticReimbursementTotalAmt = 0;
-let flexibleReimbursementTotalAmt = 0;
-let actualReimbursementTotalAmt = 0;
-
-// Variable Costs
-let staticLaborInputs = 48000, flexibleLaborInputs = 0, actualLaborInputs = 0;
-
-let staticSuppliesInputs = 100000, flexibleSuppliesInputs = 0, actualSuppliesInputs = 0;
-
-let staticLaborPrices = 25, flexibleLaborPrices = staticLaborPrices, actualLaborPrices = 0;
-
-let staticSuppliesPrices = 1.50, flexibleSuppliesPrices = staticSuppliesPrices, actualSuppliesPrices = 0;
-
-let staticLaborInputAmt = 0, flexibleLaborInputAmt = 0, actualLaborInputAmt = 0;
-let staticSuppliesInputAmt = 0, flexibleSuppliesInputAmt = 0, actualSuppliesInputAmt = 0;
-let staticVariableTotalAmt = 0, flexibleVariableTotalAmt = 0, actualVariableTotalAmt = 0;
-
-let staticFixedCosts = 500000, flexibleFixedCosts = staticFixedCosts, actualFixedCosts = staticFixedCosts;
-
-
-let staticProfit = 0, flexibleProfit =0, actualProfit = 0;
 
 // Total FF Visits 
 document.getElementById("static_visit").innerText = formatNumber(staticVisit);
@@ -375,33 +309,33 @@ document.getElementById("actual_visit").innerText = formatNumber(actualVisit);
 document.getElementById("static_bluecross").innerText = staticBlueCross + "%";
 document.getElementById("static_bluecross_cal").innerText = "( " + staticBlueCross + " % " + " of "+ formatNumber(staticVisit) + " )";
 staticBlueCrossAmt = (staticBlueCross * staticVisit) / 100
-document.getElementById("static_bluecross_amt").innerText = '$' + formatNumber(staticBlueCrossAmt) ;
+document.getElementById("static_bluecross_amt").innerText = formatNumber(staticBlueCrossAmt) + ' visits';
 
 // Flexible Budget Volume for BlueCross 
 document.getElementById("flexible_bluecross").innerText = flexibleBlueCross + "%";
 document.getElementById("flexible_bluecross_cal").innerText = "( " + flexibleBlueCross + " % " + " of "+ formatNumber(flexibleVisit) + " )";
 flexibleBlueCrossAmt = (flexibleBlueCross * flexibleVisit) / 100
-document.getElementById("flexible_bluecross_amt").innerText = '$' + formatNumber(flexibleBlueCrossAmt);
+document.getElementById("flexible_bluecross_amt").innerText = formatNumber(flexibleBlueCrossAmt)  + ' visits';
 
 
 // Static Budget Volume for Highmark 
 document.getElementById("static_highmark").innerText = staticHighmark + "%";
 document.getElementById("static_highmark_cal").innerText = "( " + staticHighmark + " % " + " of "+ formatNumber(staticVisit) + " )";
 staticHighmarkAmt = (staticHighmark * staticVisit) / 100
-document.getElementById("static_highmark_amt").innerText = '$' + formatNumber(staticHighmarkAmt);
+document.getElementById("static_highmark_amt").innerText = formatNumber(staticHighmarkAmt) + ' visits';
 
 // Flexible Budget Volume for BlueCross 
 document.getElementById("flexible_highmark").innerText = flexibleHighmark + "%";
 document.getElementById("flexible_highmark_cal").innerText = "( " + flexibleHighmark + " % " + " of "+ formatNumber(flexibleVisit) + " )";
 flexibleHighmarkAmt = (flexibleHighmark * flexibleVisit) / 100
-document.getElementById("flexible_highmark_amt").innerText = '$' + formatNumber(flexibleHighmarkAmt);
+document.getElementById("flexible_highmark_amt").innerText = formatNumber(flexibleHighmarkAmt)  + ' visits';
 
 
 // Total Volume Costs
 staticTotalAmt = staticBlueCrossAmt + staticHighmarkAmt
-document.getElementById("static_total_amt").innerText = '$' + formatNumber(staticTotalAmt);
+document.getElementById("static_total_amt").innerText = formatNumber(staticTotalAmt) + ' visits';
 flexibleTotalAmt = flexibleBlueCrossAmt + flexibleHighmarkAmt
-document.getElementById("flexible_total_amt").innerText = '$' + formatNumber(flexibleTotalAmt);
+document.getElementById("flexible_total_amt").innerText = formatNumber(flexibleTotalAmt)  + ' visits';
 
 // Static Reimbursement for BlueCross 
 document.getElementById("static_reimbursement_bluecross").innerText = "$" + staticReimbursementBlueCross;
@@ -457,7 +391,7 @@ document.querySelectorAll(".static_variable_total_amt").forEach(element => {
     element.innerText = "$" + formatNumber(staticVariableTotalAmt);
 });
 
-document.getElementById("static_variable_per_visit_cal").innerText = "( $" + formatNumber(staticVariableTotalAmt) + " / $" + formatNumber(staticVisit) + " )";
+document.getElementById("static_variable_per_visit_cal").innerText = "( $" + formatNumber(staticVariableTotalAmt) + " / " + formatNumber(staticVisit) + " visits )";
 document.getElementById("static_variable_per_visit").innerText = "$" + formatNumber(staticVariableTotalAmt / staticVisit);
 
 
